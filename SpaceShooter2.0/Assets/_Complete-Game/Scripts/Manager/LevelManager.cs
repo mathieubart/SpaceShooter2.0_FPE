@@ -28,10 +28,10 @@ public class LevelManager : MonoBehaviour
 		m_LoadingScreen.SetActive(false);
 	}
 
-	public void ChangeLevel(string i_Scene)
+	public void ChangeLevel(EScene i_Scene)
 	{
 		StartLoading();
-		SceneManager.LoadScene(i_Scene);
+		SceneManager.LoadScene((int)i_Scene);
 
 		//Add the fct OnLoadingDone in the Unity's SceneLoaded events.
 		SceneManager.sceneLoaded += OnLoadingDone;
