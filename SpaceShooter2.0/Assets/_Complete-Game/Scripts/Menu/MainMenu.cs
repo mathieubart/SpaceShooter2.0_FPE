@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-
-	public void ToggleTwoPlayerMode()
+    public void LoadShipSelection(bool a_TwoPlayerMode)
     {
-        if(PlayerManager.Instance)
+        if(a_TwoPlayerMode)
         {
-            PlayerManager.Instance.TwoPlayerMode = !PlayerManager.Instance.TwoPlayerMode;
+            if(PlayerManager.Instance)
+            {
+                PlayerManager.Instance.TwoPlayerMode = true;
+            }
         }
-    }
 
-    public void LoadShipSelection()
-    {
         if(LevelManager.Instance)
         {
             LevelManager.Instance.ChangeLevel(EScene.ShipSelection);
