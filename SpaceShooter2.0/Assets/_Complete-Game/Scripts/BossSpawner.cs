@@ -13,15 +13,22 @@ public struct BossSpawn
 public class BossSpawner : MonoBehaviour
 {
     [SerializeField]
-    private Done_GameController m_Game;
-    [SerializeField]
     private List<BossSpawn> m_BossList = new List<BossSpawn>();
 
     private int m_WaveCount = 0;
 
     private void Start()
     {
-        m_Game.m_WaveChange += OnWaveChanged;
+        GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameControllerObject.GetComponent<Done_GameController>().m_WaveChange += OnWaveChanged;
+        }
+        if (gameControllerObject == null)
+        {
+            Debug.Log("Cannot find 'GameController' script");
+        }
+
     }
 
     private void OnWaveChanged()
@@ -31,7 +38,7 @@ public class BossSpawner : MonoBehaviour
         {
             if (boss.m_Wave == m_WaveCount)
             {
-                Instantiate(boss.m_Boss);
+                Instantiate(boss.m_Boss, new Vector3(0.0f,0.0f,12.0f), Quaternion.identity);
             }
         }
     }

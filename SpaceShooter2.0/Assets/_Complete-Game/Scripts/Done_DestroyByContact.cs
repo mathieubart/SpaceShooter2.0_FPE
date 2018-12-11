@@ -6,7 +6,7 @@ public class Done_DestroyByContact : MonoBehaviour
 	public GameObject explosion;
 	public GameObject playerExplosion;
 	public int scoreValue;
-	private Done_GameController gameController;
+	protected Done_GameController gameController;
 
 	void Start ()
 	{
@@ -21,7 +21,7 @@ public class Done_DestroyByContact : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter (Collider other)
+	protected virtual void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Boundary" || other.tag == "Enemy")
 		{
@@ -41,6 +41,14 @@ public class Done_DestroyByContact : MonoBehaviour
 		
 		gameController.AddScore(scoreValue);
 		Destroy (other.gameObject);
-		Destroy (gameObject);
+        if (GetComponent<ShieldMovment>())
+        {
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+		
 	}
 }
