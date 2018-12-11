@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class Done_Boundary 
@@ -14,17 +15,29 @@ public class Done_PlayerController : MonoBehaviour
 	public Done_Boundary boundary;
 
 	public GameObject shot;
-	public Transform shotSpawn;
+	public List<Transform> shotSpawn = new List<Transform>();
 	public float fireRate;
 	 
 	private float nextFire;
+
+    public EShipType m_ShipType;
 	
 	void Update ()
 	{
 		if (Input.GetButton("Fire1") && Time.time > nextFire) 
 		{
 			nextFire = Time.time + fireRate;
-			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            
+            if(m_ShipType == EShipType.Ship1 || m_ShipType == EShipType.Ship3)
+            {
+                Instantiate(shot, shotSpawn[0].position, shotSpawn[0].rotation);
+            }
+            else if(m_ShipType == EShipType.Ship2)
+            {
+                Instantiate(shot, shotSpawn[0].position, shotSpawn[0].rotation);
+                Instantiate(shot, shotSpawn[1].position, shotSpawn[1].rotation);
+            }			
+
 			GetComponent<AudioSource>().Play ();
 		}
 	}

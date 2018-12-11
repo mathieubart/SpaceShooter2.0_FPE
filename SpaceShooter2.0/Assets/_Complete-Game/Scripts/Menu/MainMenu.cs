@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-
 	public void ToggleTwoPlayerMode()
     {
         if(PlayerManager.Instance)
