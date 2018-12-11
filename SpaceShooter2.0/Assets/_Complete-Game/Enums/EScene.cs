@@ -4,6 +4,7 @@
 
     ApplicationLauncher = 0,
     MainMenu = 1,
-    Done_Main = 2
+    ShipSelection = 2,
+    Done_Main = 3
 
 }
