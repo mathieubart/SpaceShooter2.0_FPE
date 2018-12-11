@@ -20,6 +20,13 @@ public class Done_GameController : MonoBehaviour
     private bool restart;
     private int score;
 
+    public int m_PlayerCount = 0;
+
+    public Transform m_Player1Spawn;
+    public Transform m_Player2Spawn;
+
+    public Transform m_SinglePlayerSpawn;
+
     void Start()
     {
         gameOver = false;
@@ -29,6 +36,31 @@ public class Done_GameController : MonoBehaviour
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
+
+        SpawnPlayers();
+    }
+
+    private void SpawnPlayers()
+    {
+        if(PlayerManager.Instance.GetPlayerShip(0))
+        {
+            if(PlayerManager.Instance.GetPlayerShip(1) == null)
+            {
+                m_PlayerCount++;
+                Instantiate(PlayerManager.Instance.GetPlayerShip(0), m_SinglePlayerSpawn.position, m_SinglePlayerSpawn.rotation);
+            }
+            else
+            {
+                m_PlayerCount++;
+                Instantiate(PlayerManager.Instance.GetPlayerShip(0), m_Player1Spawn.position, m_Player1Spawn.rotation);
+            }
+           
+        }
+        if(PlayerManager.Instance.GetPlayerShip(1))
+        {
+            m_PlayerCount++;
+            Instantiate(PlayerManager.Instance.GetPlayerShip(1), m_Player2Spawn.position, m_Player2Spawn.rotation);
+        }
     }
 
     void Update()
@@ -79,7 +111,12 @@ public class Done_GameController : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverText.text = "Game Over!";
-        gameOver = true;
+        m_PlayerCount--;
+
+        if(m_PlayerCount == 0)
+        {
+            gameOverText.text = "Game Over!";
+            gameOver = true;
+        }
     }
 }
