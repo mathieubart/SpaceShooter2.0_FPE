@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class Done_GameController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Done_GameController : MonoBehaviour
     public Text scoreText;
     public Text restartText;
     public Text gameOverText;
+    public TextMeshProUGUI replayText;
 
     private bool gameOver;
     private bool restart;
@@ -26,6 +28,7 @@ public class Done_GameController : MonoBehaviour
         restart = false;
         restartText.text = "";
         gameOverText.text = "";
+        replayText.text = "";
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
@@ -35,9 +38,14 @@ public class Done_GameController : MonoBehaviour
     {
         if (restart)
         {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                LevelManager.Instance.ChangeLevel(EScene.MainMenu);
+            }
+
             if (Input.GetKeyDown(KeyCode.R))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                LevelManager.Instance.ChangeLevel(EScene.Done_Main);
             }
         }
     }
@@ -59,7 +67,8 @@ public class Done_GameController : MonoBehaviour
 
             if (gameOver)
             {
-                restartText.text = "Press 'R' for Restart";
+                replayText.text = "Press M to return to main menu or R to replay.";
+                
                 restart = true;
                 break;
             }
@@ -80,6 +89,8 @@ public class Done_GameController : MonoBehaviour
     public void GameOver()
     {
         gameOverText.text = "Game Over!";
+       
         gameOver = true;
+       
     }
 }
