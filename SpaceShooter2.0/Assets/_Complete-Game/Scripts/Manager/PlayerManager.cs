@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-
+    [SerializeField]
     private GameObject[] m_SpaceShipPrefabs = new GameObject[3]; //The three prefab players can choose.
     private GameObject[] m_PlayerShips = new GameObject[2]; //The two prefab that players will have in the game.
 
@@ -35,7 +35,7 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void SetPlayerShip(int a_Choice)
+    public void SetPlayerShip(int a_Choice)
     {
         if(a_Choice >= 3)
         {
@@ -75,4 +75,13 @@ public class PlayerManager : MonoBehaviour
         return m_PlayerShips[a_PlayerID];
     }
 
+    public void ResetChoices()
+    {
+        for(int i = 0; i < m_PlayerShips.Length; i++)
+        {
+            m_PlayerShips[i] = null;
+        }
+
+        m_TwoPlayerMode = false;
+    }
 }
