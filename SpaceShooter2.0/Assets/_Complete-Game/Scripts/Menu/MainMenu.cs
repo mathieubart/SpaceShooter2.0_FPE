@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    private void Start()
+    {
+        if (PlayerManager.Instance)
+        {
+            PlayerManager.Instance.ResetChoices();
+        }
+    }
+
     public void LoadShipSelection(bool a_TwoPlayerMode)
     {
         if(a_TwoPlayerMode)
